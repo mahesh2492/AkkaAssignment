@@ -4,7 +4,7 @@
 		module="akkaassignment$sbt_2.12"
 		revision="1.0"
 		status="integration"
-		publication="20170319162900"
+		publication="20170319184043"
 	/>
 	<configurations>
 		<conf name="default" visibility="public"/>
