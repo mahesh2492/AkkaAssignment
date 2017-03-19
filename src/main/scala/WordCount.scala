@@ -1,3 +1,5 @@
+import java.io.{FileNotFoundException, File}
+
 import akka.actor.{Props, ActorSystem, Actor}
 import scala.io.Source
 
@@ -9,12 +11,20 @@ class WordCount extends Actor {
 
   override def receive = {
     case "EOF" => println("Word Count in given file "+ wordCount)
-    case filename:String =>
-      for(line<- Source.fromFile(filename).getLines())
-        {
+    case filename:String => {
+
+      try {
+        for (line <- Source.fromFile(filename).getLines()) {
           child ! line
         }
-      child ! "EOF"
+        child ! "EOF"
+      }
+      catch {
+        case e: FileNotFoundException => {
+          println("Couldn't find that file.")
+        }
+      }
+    }
     case count: Int => wordCount += count
 
   }
