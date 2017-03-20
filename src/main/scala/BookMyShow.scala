@@ -1,6 +1,5 @@
 import akka.actor.{Props, ActorSystem, Actor}
-import akka.routing.FromConfig
-import com.typesafe.config.ConfigFactory
+
 
 
 
@@ -11,7 +10,8 @@ class BookMyShow extends Actor{
     case request:String if(request == "Book Seat 1")   => if(totalNoOfSeats != 0)
       {
         totalNoOfSeats -= 1
-        println("Seat is successfully booked")
+        println("Seat is successfully booked "+totalNoOfSeats + sender().path)
+        Thread.sleep(10000)
       }
       else
       println("Show is Full")
@@ -22,7 +22,7 @@ class BookMyShow extends Actor{
       else if(totalNoOfSeats < 5 )
       {
         totalNoOfSeats += 1
-        println("Seat is successfully cancelled")
+        println("Seat is successfully cancelled"+ sender().path)
 
       }
 
@@ -31,14 +31,9 @@ class BookMyShow extends Actor{
 
   }
 
-object BookMyShow extends App {
+object BookMyShow {
 
-  val system = ActorSystem("BookMyShow")
-  val actor = system.actorOf(Props[BookMyShow])
-  actor ! "Cancel Seat 1"
-  actor ! "Book Seat 1"
-  actor ! "Book Seat 1"
-  actor ! "Cancel Seat 1"
+  def prop:Props = Props[BookMyShow]
 
 
 }

@@ -36,7 +36,7 @@ class ChildWordCount extends WordCount {
 
   override def receive = {
     case "EOF" => sender ! "EOF"
-    case line:String => sender ! line.split(" ").size
+    case line:String => sender ! line.trim.replaceAll(" +"," ").split(" ").length
   }
 }
 
