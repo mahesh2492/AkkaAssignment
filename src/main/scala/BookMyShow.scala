@@ -11,7 +11,7 @@ class BookMyShow extends Actor{
       {
         totalNoOfSeats -= 1
         println("Seat is successfully booked "+totalNoOfSeats + sender().path)
-        Thread.sleep(10000)
+        //Thread.sleep(10000)
       }
       else
       println("Show is Full")
